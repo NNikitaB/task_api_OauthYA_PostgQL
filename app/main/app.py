@@ -34,7 +34,9 @@ app.add_middleware(
 app.include_router(routers)
 
 
-
+@app.get("/")
+async def root():
+    return {"message": "Audio Service API created by NNikitaB"}
 
 
 

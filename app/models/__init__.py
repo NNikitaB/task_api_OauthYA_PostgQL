@@ -1,9 +1,9 @@
 __all__ = [
     'Base',
     'Users',
-    'Audio',
+    'AudioFiles',
 ]
 
 from .Base import Base
 from .Users import Users
-from .Audio import Audio
+from .AudioFiles import AudioFiles
