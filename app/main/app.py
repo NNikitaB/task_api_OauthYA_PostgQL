@@ -1,9 +1,12 @@
-from fastapi import FastAPI,HTTPException
+from fastapi import FastAPI,HTTPException,Depends
 from pydantic import ValidationError
 from fastapi.exceptions import RequestValidationError
 from app.api.v1.endpoints.routers import routers
 from app.database.db import create_tables
 from contextlib import asynccontextmanager
+from app.schema.User import UserResponse
+from app.models.Users import Users
+from app.services.TokenJWT import get_current_user
 #add CORS
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -38,6 +41,10 @@ app.include_router(routers)
 async def root():
     return {"message": "Audio Service API created by NNikitaB"}
 
+@app.get("/me", response_model=UserResponse)
+async def get_current_user_info(current_user: Users = Depends(get_current_user)):
+    """Получение информации о текущем пользователе"""
+    return current_user
 
 
 

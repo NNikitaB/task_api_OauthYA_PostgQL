@@ -16,5 +16,16 @@ class Settings:
     DB_URL: str = f'{DB}://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
     BD_URL_TEST: str = f'sqlite+aiosqlite:///:memory'
 
+    YANDEX_CLIENT_ID: str = "58e80fb302174bf084e6d4447552a4ff"
+    YANDEX_CLIENT_SECRET: str = "913fe56038434d65b7e38b0025eb6a4b"
+    #YANDEX_REDIRECT_URI: str = "http://localhost:8000/oauth/yandex/callback"
+    YANDEX_REDIRECT_URI: str = "https://oauth.yandex.ru/testWebAudioFileLoader"
+    #JWT settings
+    JWT_SECRET_KEY: str = os.environ.get('JWT_SECRET_KEY', 'secret')
+    JWT_ALGORITHM: str = os.environ.get('JWT_ALGORITHM', 'HS256')
+    JWT_ACCESS_TOKEN_EXPIRE_MINUTES: int = int(os.environ.get('JWT_ACCESS_TOKEN_EXPIRE_MINUTES', 120))
+    JWT_REFRESH_TOKEN_EXPIRE_MINUTES: int = int(os.environ.get('JWT_REFRESH_TOKEN_EXPIRE_MINUTES', 60 * 24 * 7))
+
+
 
 settings = Settings()

@@ -9,6 +9,8 @@ sqlalchemy_utils
 psycopg2-binary
 asyncpg
 aiosqlite
+python-jose
+jwt
 #mongoengine
 #pymongo
 #redis 
