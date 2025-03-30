@@ -4,6 +4,7 @@ __all__ = [
     'AudioFiles',
 ]
 
-from .Base import Base
+
 from .Users import Users
 from .AudioFiles import AudioFiles
+from .Base import Base

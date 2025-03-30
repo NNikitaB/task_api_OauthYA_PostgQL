@@ -22,7 +22,7 @@ class OAuthYandex(BaseOAuth):
         return f"{yandex_auth_url}?{urlencode(params)}"
     
     async def exchange_code_for_token(self, code: str) -> str:
-        token_url = "https://oauth.yandex.ru/token"
+        token_url = "https://oauth.yandex.ru/"
         data = {
             "grant_type": "authorization_code",
             "code": code,

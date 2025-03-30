@@ -22,7 +22,7 @@ def get_random_str():
 
 
 @audio_files_router.post("/", response_model=AudioFileResponse)
-async def upload_audio(file: UploadFile = File(...),filename:str = get_random_str(), user_uuid: UUID = UUID(), db: AsyncSession = Depends(get_async_session)):
+async def upload_audio(file: UploadFile = File(...),filename:str = get_random_str(), user_uuid: UUID = uuid4(), db: AsyncSession = Depends(get_async_session)):
     file_location = f"{AUDIO_STORAGE_PATH}{file.filename}"
 
     audio_file = AudioFiles(

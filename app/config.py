@@ -14,12 +14,13 @@ class Settings:
     DB_NAME: str = os.environ.get('DB_NAME', 'dbname')  # Значение по умолчанию
 
     DB_URL: str = f'{DB}://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
-    BD_URL_TEST: str = f'sqlite+aiosqlite:///:memory'
-
-    YANDEX_CLIENT_ID: str = "58e80fb302174bf084e6d4447552a4ff"
-    YANDEX_CLIENT_SECRET: str = "913fe56038434d65b7e38b0025eb6a4b"
+    BD_URL_TEST: str = f'sqlite+aiosqlite:///:./testdb.sqlite'
+    BD_NAME_TEST:str = "testdb.sqlite"
+    #YANDEX settings
+    YANDEX_CLIENT_ID: str = os.environ.get("YANDEX_CLIENT_ID","58e80fb302174bf084e6d4447552a4ff")
+    YANDEX_CLIENT_SECRET: str = os.environ.get("YANDEX_CLIENT_SECRET","913fe56038434d65b7e38b0025eb6a4b")
     #YANDEX_REDIRECT_URI: str = "http://localhost:8000/oauth/yandex/callback"
-    YANDEX_REDIRECT_URI: str = "https://oauth.yandex.ru/testWebAudioFileLoader"
+    YANDEX_REDIRECT_URI: str = os.environ.get("YANDEX_REDIRECT_URI","https://oauth.yandex.ru/testWebAudioFileLoader")
     #JWT settings
     JWT_SECRET_KEY: str = os.environ.get('JWT_SECRET_KEY', 'secret')
     JWT_ALGORITHM: str = os.environ.get('JWT_ALGORITHM', 'HS256')
@@ -29,3 +30,4 @@ class Settings:
 
 
 settings = Settings()
+

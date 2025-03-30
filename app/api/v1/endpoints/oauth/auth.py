@@ -13,7 +13,13 @@ oauth_router = APIRouter(prefix="/api/v1/oauth", tags=["Oauth"])
 
 
 
-@oauth_router.get("/yandex")
+@oauth_router.get("/get_authorization_url")
+async def get_authorization_url():
+    """Получение URL для авторизации через Яндекс"""
+    oauth_yandex = OAuthYandex()
+    return {"authorization_url": oauth_yandex.get_auth_url()}
+
+@oauth_router.post("/yandex")
 async def login_with_yandex(code: str, db: AsyncSession = Depends(get_async_session)):
     """Авторизация через Яндекс"""
     logger.info(f"Авторизация через Яндекс с кодом: {code}")
