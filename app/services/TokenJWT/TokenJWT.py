@@ -10,6 +10,7 @@ from app.models.Users import Users
 from jose import JWTError, jwt
 from app.config import settings
 
+from uuid import UUID
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
@@ -45,8 +46,9 @@ class TokenJWT:
             return user_uuid
         except JWTError:
             return None
-        
-async def get_current_user(token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_async_session)):
+
+ # = Depends(oauth2_scheme),       
+async def get_current_user(token: str, db: AsyncSession = Depends(get_async_session)):
     """Получение текущего пользователя из токена"""
     credentials_exception = HTTPException(
         status_code=401,
@@ -55,13 +57,13 @@ async def get_current_user(token: str = Depends(oauth2_scheme), db: AsyncSession
     )
     try:
         payload = jwt.decode(token, settings.JWT_SECRET_KEY, algorithms=[settings.JWT_ALGORITHM])
-        user_id: str|None = payload.get("sub")
-        if user_id is None:
+        user_uuid: str|None = payload.get("sub")
+        if user_uuid is None:
             raise credentials_exception
     except JWTError:
         raise credentials_exception
 
-    user = await db.get(Users, int(user_id))
+    user = await db.get(Users, UUID(user_uuid))
     if user is None:
         raise credentials_exception
     return user

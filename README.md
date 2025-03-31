@@ -8,6 +8,18 @@ OpenAPI [http://localhost:8080/docs]
 или
 OpenAPI [http://127.0.0.1:8080/docs]
 
+Использование API
+1. получить ссылку для авторизации Яндекс
+/api/v1/oauth/get_authorization_url - получить ссылку для авторизации Яндекс
+2. перейти и получить токен Яндекс
+3. отправить токен яндекса и получить токен для сайта
+/api/v1/oauth/yandex - регистрация через Яндекс получение и JWT токена для сайта
+4. Ддя загрузки файлов отправить токен сайта,имя файла и файл.
+http://localhost:8080/api/v1/audio_files/upload/ - загрузить файл
+http://localhost:8080/api/v1/audio_files/get_file/ - получить файл по id
+http://localhost:8080/api/v1/audio_files/get_files - получить список аудиофайлов
+
+
 ## Локально без docker-compose
 ### 1. Установите venv 
 ```python

@@ -5,7 +5,7 @@ from app.database.db import get_async_session
 from app.models.Users import Users
 from app.schema.User import UserResponse
 from app.services.oauth import OAuthYandex
-from app.services.TokenJWT import TokenJWT
+from app.services.TokenJWT import TokenJWT, get_current_user
 from app.logger import logger
 from uuid import UUID
 
@@ -19,21 +19,22 @@ async def get_authorization_url():
     oauth_yandex = OAuthYandex()
     return {"authorization_url": oauth_yandex.get_auth_url()}
 
-@oauth_router.post("/yandex")
-async def login_with_yandex(code: str, db: AsyncSession = Depends(get_async_session)):
+@oauth_router.get("/yandex")
+async def login_with_yandex(token: str, db: AsyncSession = Depends(get_async_session)):
     """Авторизация через Яндекс"""
-    logger.info(f"Авторизация через Яндекс с кодом: {code}")
+    logger.info(f"Авторизация через Яндекс с кодом: {token}")
     oauth_yandex = OAuthYandex()
     jwt_token = TokenJWT()
-    access_token = await oauth_yandex.exchange_code_for_token(code)
-    user_data = await oauth_yandex.get_user_info(access_token)
- 
-    email = user_data.get("email")
+    #access_token = await oauth_yandex.exchange_code_for_token(code)
+    user_data = await oauth_yandex.get_user_info(token)
+    print(user_data)
+    email = user_data.get("default_email")
+    username=user_data.get("login")
     existing_user = await db.execute(select(Users).where(Users.email == email))
     user = existing_user.scalar()
 
     if not user:
-        user = Users(username=user_data.get("login"), email=email, hashed_password="yandex_oauth")
+        user = Users(username=username, email=email, hashed_password=token)
         db.add(user)
         await db.commit()
         await db.refresh(user)

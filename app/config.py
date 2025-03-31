@@ -17,10 +17,10 @@ class Settings:
     BD_URL_TEST: str = f'sqlite+aiosqlite:///:./testdb.sqlite'
     BD_NAME_TEST:str = "testdb.sqlite"
     #YANDEX settings
-    YANDEX_CLIENT_ID: str = os.environ.get("YANDEX_CLIENT_ID","58e80fb302174bf084e6d4447552a4ff")
-    YANDEX_CLIENT_SECRET: str = os.environ.get("YANDEX_CLIENT_SECRET","913fe56038434d65b7e38b0025eb6a4b")
+    YANDEX_CLIENT_ID: str = os.environ.get("YANDEX_CLIENT_ID","c24b56cb912b47378db420335797ed5c")
+    YANDEX_CLIENT_SECRET: str = os.environ.get("YANDEX_CLIENT_SECRET","3c36968eb74c4aeca32016be5cc44c26")
     #YANDEX_REDIRECT_URI: str = "http://localhost:8000/oauth/yandex/callback"
-    YANDEX_REDIRECT_URI: str = os.environ.get("YANDEX_REDIRECT_URI","https://oauth.yandex.ru/testWebAudioFileLoader")
+    YANDEX_REDIRECT_URI: str = os.environ.get("YANDEX_REDIRECT_URI","https://oauth.yandex.ru/verification_code")
     #JWT settings
     JWT_SECRET_KEY: str = os.environ.get('JWT_SECRET_KEY', 'secret')
     JWT_ALGORITHM: str = os.environ.get('JWT_ALGORITHM', 'HS256')

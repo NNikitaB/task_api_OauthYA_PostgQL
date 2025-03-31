@@ -12,4 +12,4 @@ class AudioFiles(Base):
     file_name: Mapped[str] = mapped_column(nullable=False)
     file_path: Mapped[str] = mapped_column(nullable=False)
 
-    user = relationship("Users", back_populates="audio_files")
+    user = relationship("Users", back_populates="audio_files", lazy="selectin")

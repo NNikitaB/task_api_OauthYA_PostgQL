@@ -6,7 +6,7 @@ from app.schema.User import UserCreate, UserResponse, UserUpdate
 from app.database.db import get_async_session
 from sqlalchemy.future import select
 from uuid import UUID
-
+from app.services.TokenJWT import get_current_user
 
 user_router = APIRouter(prefix="/api/v1/user", tags=["User"])
 

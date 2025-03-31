@@ -22,6 +22,8 @@ async def init_db(app: FastAPI):
     await create_tables()
     yield
 
+db_created = create_tables()
+
 app = FastAPI(title="Audio Service API",lifespan=init_db)
 
 app.add_middleware(
