@@ -11,4 +11,14 @@ Part roadmap:
 * Create form for user profile delete
 * Create simple registration code
 * Create JWT
+* simple registration
+* simple login
+* JWT reg and log
+* OpenID,Oauth Yandex,google regin and login
+* Servise statistics of user
+* Servise access users
+* Role Servise admins and users
+
+
+
 

@@ -22,9 +22,9 @@ async def init_db(app: FastAPI):
     await create_tables()
     yield
 
-db_created = create_tables()
+#db_created = create_tables()
 
-app = FastAPI(title="Audio Service API",lifespan=init_db)
+app = FastAPI(title="Security Service API",lifespan=init_db,on_startup=[create_tables])
 
 app.add_middleware(
     CORSMiddleware,
@@ -41,7 +41,7 @@ app.include_router(routers)
 
 @app.get("/")
 async def root():
-    return {"message": "Audio Service API created by NNikitaB"}
+    return {"message": "Security Service API created by NNikitaB"}
 
 @app.get("/me", response_model=UserResponse)
 async def get_current_user_info(current_user: Users = Depends(get_current_user)):
