@@ -3,7 +3,7 @@ version: "3.8"
 services:
   postgres:
     image: postgres:16
-    container_name: postgres
+    container_name: postgres_fld
     environment:
       POSTGRES_USER: dev
       POSTGRES_PASSWORD: admin
@@ -11,7 +11,7 @@ services:
     ports:
       - "5435:5432"
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - pgdata_fld:/var/lib/postgresql/data
       #- ./deploy/init.sql:/docker-entrypoint-initdb.d/init-database.sql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U dev -d postgres"]
@@ -22,7 +22,7 @@ services:
     networks:
       - net_shared
   pgadmin:
-    container_name: pgadmin_dev
+    container_name: pgadmin_fld
     image: dpage/pgadmin4:7.2
     command: -c 'max_connections=1000' -c 'shared_buffers=2GB' -c 'work_mem=524MB' -c 'maintenance_work_mem=256MB' -c 'effective_cache_size=2GB' -c 'max_worker_processes=10' 
     environment:
@@ -46,7 +46,7 @@ services:
     build:
       dockerfile: Dockerfile
       context: .
-    container_name: fastapi_app
+    container_name: fastapi_fld
     ports:
       - "8080:8080"   # FastAPI default port
     environment:
@@ -74,7 +74,7 @@ services:
     networks:
       - net_shared
 volumes:
-  pgdata:
+  pgdata_fld:
   pgadmin-data:
 
 networks:
