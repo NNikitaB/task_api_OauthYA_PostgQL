@@ -1,10 +1,13 @@
 __all__ = [
     'Base',
     'Users',
-    'AudioFiles',
+    'UserRole',
+    'ServicesAccess',
+    'ServiceName',
+    'AccessLevel',
 ]
 
 
-from .Users import Users
-from .AudioFiles import AudioFiles
+from .Users import Users,UserRole
+from .ServicesAccess import ServicesAccess, ServiceName, AccessLevel
 from .Base import Base

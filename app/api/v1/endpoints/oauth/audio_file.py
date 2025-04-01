@@ -4,7 +4,7 @@ from sqlalchemy.future import select
 from uuid import UUID,uuid4
 import shutil
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.models.AudioFiles import AudioFiles
+from app.models.Statistics import AudioFiles
 from app.schema.AudioFile import AudioFileResponse
 from typing import List
 from app.services.TokenJWT import get_current_user
