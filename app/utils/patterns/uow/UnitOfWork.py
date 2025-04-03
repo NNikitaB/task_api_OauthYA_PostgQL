@@ -1,17 +1,60 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import Callable
+from abc import ABC, abstractmethod
+from typing import Protocol
+from app.utils.patterns.rep.UsersRepository import UsersRepository
 
-class UnitOfWork:
-    def __init__(self, session_factory: Callable[[], AsyncSession]):
-        self.session_factory = session_factory
+
+class IUnitOfWork(ABC):
+    """Интерфейс Unit of Work для управления транзакциями"""
+
+    def __init__(self, session: AsyncSession):
+        self.session = session
+
+    @abstractmethod
+    async def __aenter__(self):
+        """Начало контекста Unit of Work"""
+        raise NotImplementedError
+
+    @abstractmethod
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        """Завершение контекста Unit of Work"""
+        raise NotImplementedError
+
+    @abstractmethod
+    async def commit(self):
+        """Фиксация транзакции"""
+        raise NotImplementedError
+
+    @abstractmethod
+    async def rollback(self):
+        """Откат транзакции"""
+        raise NotImplementedError
+    
+
+class UnitOfWork(IUnitOfWork):
+    """Unit of Work для управления транзакциями """
+
+    def __init__(self, session: AsyncSession):
+        super().__init__(session)
+        self.users = UsersRepository(session)  # Подключаем репозиторий пользователей
 
     async def __aenter__(self):
-        self.session = self.session_factory()
-        return self.session
+        """Начинаем транзакцию"""
+        return self
 
-    async def __aexit__(self, exc_type, exc, tb):
-        if exc is None:
-            await self.session.commit()
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        """Коммитим или откатываем транзакцию в зависимости от наличия ошибок"""
+        if exc_type:
+            await self.rollback()
         else:
-            await self.session.rollback()
-        await self.session.close()
+            await self.commit()
+
+    async def commit(self):
+        """Фиксация транзакции"""
+        await self.session.commit()
+
+    async def rollback(self):
+        """Откат транзакции"""
+        await self.session.rollback()
+        

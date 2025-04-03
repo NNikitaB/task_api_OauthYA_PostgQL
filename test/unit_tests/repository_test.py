@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine,Async
 from sqlalchemy.orm import Session
 from app.models.Base import Base
 from app.models.Users import Users,UserRole
-from app.utils.patterns.UsersRepository import UsersRepository
+from app.utils.patterns.rep import UsersRepository, ServiceAccessRepository
 from app.schema.User import UserBase
 from typing import Sequence
 import datetime

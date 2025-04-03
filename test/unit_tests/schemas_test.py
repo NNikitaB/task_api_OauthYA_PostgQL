@@ -1,3 +1,4 @@
+import pytest
 from app.schema import (
     UserCreate,
     UserUpdate,
@@ -11,7 +12,7 @@ from app.schema import (
 from app.core import ServiceName, AccessLevel, UserRole
 from  uuid import uuid4
 from datetime import datetime
-import pytest
+
 
 # Test for ServiceAccess schemas
 @pytest.fixture
@@ -98,9 +99,10 @@ def test_user_get(user_data):
 # Test UserResponse schema validation (for response containing user details and services_access)
 def test_user_response(user_data):
     user_data['email_verified'] = True
+    user_data["created_at"] = datetime.now()
     user_data['services_access'] = [
         ServiceAccessGet(id=1, user_uuid=uuid4(), service_name=ServiceName.Default,granted_at=datetime.now()),
-        ServiceAccessGet(id=2, user_uuid=uuid4(), service_name=ServiceName.Donate,granted_at=datetime.now()),
+        ServiceAccessGet(id=2, user_uuid=uuid4(), service_name=ServiceName.Donate,granted_at=datetime.now())
         ]
     user_response = UserResponse(**user_data)
     assert user_response.username == "john_doe"

@@ -5,7 +5,7 @@ Part roadmap:
 2. Create test for user and service
 3. Create schema for user and service
 4. Create test for user and service schema
-* Create repository for user and service
+- Create repository for user and service
 * Create test for user and service repository
 * Create endpoints for user and service
 * Create test for user and service endpoints
