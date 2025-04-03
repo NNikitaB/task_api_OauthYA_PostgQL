@@ -3,36 +3,8 @@ from .Base import Base
 from sqlalchemy.orm import relationship, Mapped, mapped_column
 from uuid import UUID,uuid4
 from datetime import datetime, UTC
-
-
-class ServiceName(Enum):
-    """
-    Enumeration of available service names in the application.
-    
-    Defines the unique identifiers for different services that can be accessed,
-    including time series analysis, preprocessing, donation, computer vision,
-    and advertisement services.
-    """
-    TimeSeries = "service_TimeSeries"
-    PreprocessingTable = "service_PreprocesingTable"
-    Donate = "service_Donate"
-    ComputerVision = "service_ComputerVision"
-    Advertisement = "service_Advertisement"
-
-
-class AccessLevel(Enum):
-    """
-    Enumeration representing different access levels for service permissions.
-    
-    Defines the hierarchy of user access levels in the application:
-    - User: Standard access level with basic permissions
-    - Pro: Enhanced access level with additional privileges
-    - Admin: Highest access level with full system permissions
-    """
-        
-    User = "user"
-    Pro = "pro"
-    Admin = "admin"
+from app.core.AccessLevel import AccessLevel
+from app.core.ServiceName import ServiceName
 
 
 class ServicesAccess(Base):
@@ -54,7 +26,7 @@ class ServicesAccess(Base):
     __tablename__ = "service_access"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    service_name: Mapped[str] = mapped_column(nullable=False)
+    service_name: Mapped[str] = mapped_column(nullable=False,default=ServiceName.Default)
     is_active: Mapped[bool] = mapped_column(default=False)
     access_level: Mapped[str] = mapped_column(nullable=False,default=AccessLevel.User)
     granted_at = mapped_column(DateTime, default=datetime.now(UTC))

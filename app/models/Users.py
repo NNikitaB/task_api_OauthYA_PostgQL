@@ -3,19 +3,7 @@ from .Base import Base
 from sqlalchemy.orm import relationship, Mapped, mapped_column
 from uuid import UUID,uuid4
 from datetime import datetime,UTC
-
-
-class UserRole(Enum,str):
-    """
-    Enumeration representing user roles in the application.
-    
-    Defines two distinct roles:
-    - User: Standard user role with basic permissions
-    - Admin: Administrative role with elevated privileges
-    """
-        
-    USER = "user"
-    ADMIN = "admin"
+from app.core.UserRole import UserRole
 
 
 class Users(Base):

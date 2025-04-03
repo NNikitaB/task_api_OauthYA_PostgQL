@@ -1,24 +1,37 @@
 from pydantic import BaseModel, EmailStr
 from typing import Optional, List
-from app.schema.AudioFile import AudioFileResponse
+from app.schema import ServiceAccessGet 
 from uuid import UUID
+from app.core import UserRole
+from datetime import datetime,UTC
 
 class UserBase(BaseModel):
+    uuid: UUID
     username: str
     email: EmailStr
+    psevdonim: str
+    is_active: bool = True
+    is_superuser: bool = False
+    role: UserRole = UserRole.USER
+    notes: Optional[str] = None
+    phone: Optional[str] = None
+
+class UserGet(UserBase):
+    email_verified: bool = False
+    services_access: List[ServiceAccessGet] = []
 
 class UserCreate(UserBase):
-    password: str
+    email_verified: bool = False
+    services_access: List[ServiceAccessGet] = []
+    hashed_password: str
+    created_at: datetime = datetime.now(UTC)
+
+class UserUpdate(UserBase):
+    hashed_password: str 
+    email_verified: bool = False
+    services_access: Optional[List[ServiceAccessGet]] = None
 
 class UserResponse(UserBase):
-    uuid: UUID
-    is_active: bool
-    audio_files: List[AudioFileResponse] = []
-
-    class ConfigDict:
-        from_attributes = True
-
-class UserUpdate(BaseModel):
-    username: Optional[str] = None
-    email: Optional[EmailStr] = None
-    password: Optional[str] = None
+    created_at: datetime
+    email_verified: bool
+    services_access: List[ServiceAccessGet] = [] 
