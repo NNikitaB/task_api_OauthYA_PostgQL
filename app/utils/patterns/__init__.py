@@ -1,9 +1,11 @@
 __all__ = [
-    "BaseSqlAsyncRepository",
+    "ServicesAccessRepository",
     "UsersRepository",
+    "IUnitOfWork",
+    "UnitOfWork",
 ]
 
 
-from .rep.repository import BaseSqlAsyncRepository
-from .rep.UsersRepository import UsersRepository
+from .rep import UsersRepository, ServicesAccessRepository
+from .uow import UnitOfWork, IUnitOfWork
 

@@ -19,5 +19,6 @@ class ServiceName(StrEnum):
     Chat = "service_Chat"
     Default = "service_SersivesRegistry"
     ServicesRegistry = "service_SersivesRegistry"
+    TestStend = "service_TestStend"
 
 

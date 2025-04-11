@@ -19,11 +19,12 @@ class ServiceAccessGet(ServiceAccessBase):
 
 class ServiceAccessCreate(ServiceAccessBase):
     user_uuid: UUID
-    granted_at: Optional[datetime] = datetime.now()
+    granted_at: Optional[datetime] = datetime.now(UTC)
 
 
 class ServiceAccessUpdate(ServiceAccessBase):
     id: int
+    
 
 
 class ServiceAccessResponse(ServiceAccessGet):

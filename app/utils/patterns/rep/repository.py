@@ -262,3 +262,4 @@ class BaseSqlAsyncRepositoryID(BaseRepositoryID[T], ABC):
         if record is not None:
             await self._session.delete(record)
             await self._session.flush()
+

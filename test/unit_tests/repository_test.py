@@ -4,9 +4,19 @@ from sqlalchemy import create_mock_engine,create_engine
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine,AsyncSession
 from sqlalchemy.orm import Session
 from app.models.Base import Base
-from app.models.Users import Users,UserRole
-from app.utils.patterns.rep import UsersRepository, ServiceAccessRepository
-from app.schema.User import UserBase
+from app.core import UserRole,AccessLevel,ServiceName
+from app.models import Users, ServicesAccess
+from app.utils.patterns import UsersRepository, ServicesAccessRepository
+from app.schema import (
+    User,
+    UserCreate,
+    UserUpdate,
+    UserGet,
+    ServiceAccessCreate,
+    ServiceAccessUpdate,
+    ServiceAccessGet,
+    ServiceAccessResponse,
+)
 from typing import Sequence
 import datetime
 import uuid

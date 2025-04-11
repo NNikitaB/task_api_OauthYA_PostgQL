@@ -3,6 +3,8 @@ __all__ = [
     "ServiceAccessCreate",
     "ServiceAccessUpdate",
     "ServiceAccessResponse",
+    "ServiceAccessBase",
+    "UserBase",
     "UserGet",
     "UserResponse",
     "UserCreate",
@@ -10,5 +12,5 @@ __all__ = [
 ]
 
 
-from .ServiceAccess import ServiceAccessGet, ServiceAccessCreate, ServiceAccessUpdate,ServiceAccessResponse
-from .User import UserCreate, UserGet, UserResponse, UserUpdate
+from .ServiceAccess import ServiceAccessGet, ServiceAccessCreate, ServiceAccessUpdate,ServiceAccessResponse,ServiceAccessBase
+from .User import UserCreate, UserGet, UserResponse, UserUpdate,UserBase
